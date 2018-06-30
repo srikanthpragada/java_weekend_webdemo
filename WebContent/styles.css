@@ -1,0 +1,37 @@
+@charset "ISO-8859-1";
+/* css class */
+.highlight 
+{
+	letter-spacing : 2pt;
+	font-style: italic;
+	color : red;
+}
+
+.banner {
+	font-size:30pt;
+	font-family:arial;
+	color : navy;
+}
+
+
+h1 {
+	color: red
+}
+
+h3 {
+	color: blue
+}
+
+body {
+	font-family: 'verdana';
+	font-size: 12pt
+}
+
+li {
+	color: green
+}
+
+th {
+	color: white;
+	background: darkgray
+}

@@ -1,6 +1,8 @@
 # Compiled class file
 *.class
-
+/build/*
+/.setttings/*
+/upload.bat 
 # Log file
 *.log
 

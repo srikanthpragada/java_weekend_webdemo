@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Introduction</title>
+<link  href="styles.css" rel="stylesheet" />
+<script>
+   function showContact() {
+	   var det = document.getElementById("details")
+	   det.innerText = "Contact no: 9059057000"
+   }
+</script>
+</head>
+<body>
+	<div class="highlight banner">Introduction</div>
+	Java EE is the technology to build web applications using Java.
+	<p />
+	The following are important topics:
+
+	<ul>
+		<li>HTML</li>
+		<li>Style Sheets</li>
+		<li>JavaScript</li>
+		<li>Servlets and JSPs</li>
+	</ul>
+
+	<h3>Software Required</h3>
+	Here is software required to develop web applications using Java EE.
+	<p></p>
+	<table border="1" width="100%">
+		<tr>
+			<th>Title</th>
+			<th>Version</th>
+			<th>Web URL</th>
+		</tr>
+		<tr>
+			<td>Tomcat Server</td>
+			<td>9.0</td>
+			<td>tomcat.apache.org</td>
+		</tr>
+		<tr>
+			<td class="highlight">Eclipse</td>
+			<td>Oxygen</td>
+			<td>eclipse.org</td>
+		</tr>
+		
+	</table>
+	<p/>
+	<div class="highlight">Prerequsites: Java Language and Web Basics</div>
+    <p/>
+    <div onclick="showContact()"   id="details">Click here to get contact details</div>
+   
+</body>
+</html>
