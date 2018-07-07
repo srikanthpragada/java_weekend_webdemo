@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login With jQuery</title>
+<script src="jquery-3.3.1.js"></script>
+<script>
+// return true on success and false otherwise 
+function validateData() {
+	email  = $("#email").val()
+	pwd = $("#pwd").val() 
+	if ( email == pwd)
+    {
+	   $("div").text("Email and password cannot be same!");
+	   return false; 
+    }
+	
+    return true; 
+}
+
+function clearValues()
+{
+	$(".text").val("")
+}
+</script>
+</head>
+<body>
+<h2>Login</h2>
+<form action="login.jsp"  method="post"  onsubmit="return validateData()">
+Email Address <br/>
+<input type="email" name="email" id="email" required class="text" />
+<p/>
+Password <br/>
+<input type="password" name="pwd" id="pwd" required  class="text" />
+<p/>
+<input type="checkbox" id="autologin" />Auto Login
+<p/>
+<input type="submit" value="Login" />
+<input type="button" value="Clear"  onclick="clearValues()" />
+</form>
+
+<div style="color:red"></div>
+
+<img src="john.jpg" />
+</body>
+</html>
