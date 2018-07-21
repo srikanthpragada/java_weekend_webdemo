@@ -9,22 +9,43 @@
 </head>
 <body>
 	<h1>Employees By Department</h1>
+	<%
+	String deptid = request.getParameter("deptid");
+	%>
 	<form action="empbydept.jsp">
-		Department Id <input type="number" required name="deptid"
-			value="${param.deptid}" /> <input type="submit" value="Employees" />
+		Department Id 
+		<select name="deptid" onchange="submit()">
+		  <%
+		    CachedRowSet crs = new OracleCachedRowSet();
+			crs.setUsername("hr");
+			crs.setPassword("hr");
+			crs.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
+			crs.setCommand("select department_id, department_name from departments order by 2");
+			crs.execute();
+			while(crs.next()) {
+				if (deptid != null && deptid.equals(crs.getString(1)))
+					out.println(String.format("<option selected value=%d>%s</option>", 
+							  crs.getInt(1), crs.getString(2)));
+				else
+				    out.println(String.format("<option value=%d>%s</option>", 
+						  crs.getInt(1), crs.getString(2)));
+			}
+            crs.close();		  
+		  %>
+		</select> 
+ 	    <input type="submit" value="Employees" />
 	</form>
 
 	<%
 		// read parameter and if not found stop
-		String deptid = request.getParameter("deptid");
 		if (deptid == null)
 			return; // stop JSP here
 
-		CachedRowSet crs = new OracleCachedRowSet();
+		crs = new OracleCachedRowSet();
 		crs.setUsername("hr");
 		crs.setPassword("hr");
 		crs.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-		crs.setCommand("select * from employees where department_id = ?");
+		crs.setCommand("select employee_id, first_name,salary, job_title, to_char(hire_date,'dd-mon-yyyy') hire_date from employees join jobs using(job_id) where department_id = ?");
 		crs.setString(1, deptid);
 		crs.execute();
 		if (!crs.next()) {
@@ -50,7 +71,7 @@
 			<td><%=crs.getString("employee_id")%></td>
 			<td><%=crs.getString("first_name")%></td>
 			<td style="text-align: right"><%=crs.getString("salary")%></td>
-			<td><%=crs.getString("job_id")%></td>
+			<td><%=crs.getString("job_title")%></td>
 			<td><%=crs.getString("hire_date")%></td>
 		</tr>
 		<%

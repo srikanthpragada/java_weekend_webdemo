@@ -21,6 +21,7 @@ body {
 			<th>Job Title</th>
 			<th>Min Salary</th>
 			<th>Max Salary</th>
+			<th></th>
 		</tr> 
 		<%
 			CachedRowSet crs = new OracleCachedRowSet();
@@ -36,6 +37,9 @@ body {
 			<td><%=crs.getString(2)%></td>
 			<td style="text-align:right"><%=crs.getString(3)%></td>
 			<td style="text-align:right"><%=crs.getString(4)%></td>
+			<td>
+			   <a href="empbyjob.jsp?jobid=<%=crs.getString(1)%>">Employees</a>
+			</td>
 		</tr>
 		<%
 			}
