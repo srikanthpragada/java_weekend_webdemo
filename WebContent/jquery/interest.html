@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Interest Calculation</title>
+<script src="jquery-3.2.1.js"></script>
+<script>
+  function calculate() 
+  {
+	  var amount = $("#amount").val();
+	  var rate = $("#rate").val();
+	  
+	  var interest = amount * rate / 100;
+	  $("#result").text(interest);
+	    
+  }
+</script>
+</head>
+<body>
+<h1>Interest Calculation</h1>
+Amount <br/>
+<input type="number" id="amount" />
+<p></p>
+Rate <br/>
+<input type="number" id="rate" />
+<p></p>
+<button onclick="calculate()">Calculate</button>
+<h2 id="result"></h2>
+
+
+</body>
+</html>

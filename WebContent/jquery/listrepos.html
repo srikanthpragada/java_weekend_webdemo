@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <title>GitHub User Details </title>
+        <script src="jquery-3.2.1.js"></script>
+        <script>
+            function getRepos() {
+                url="https://api.github.com/users/" + $("#user").val() + "/repos";
+                $.getJSON(url,{},displayRepos);
+            }
+
+            function displayRepos(repos) {
+            	 $("#repos").html("");
+                 $.each(repos,processRepo);
+            }
+            
+            function processRepo(idx, repo) {
+            	 $("#repos").append("<li>" + repo.name + "," + repo.description + "</li>");
+            }
+        </script>
+    </head>
+    <body">
+            <h2>List Repos</h2>
+            <input type="text" value="srikanthpragada" id="user"/>
+            <button onclick="getRepos()">Get Repos</button>
+            <ul id="repos">
+              
+            </ul>
+            
+
+    </body>
+</html>

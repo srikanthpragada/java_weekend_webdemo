@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Employee</title>
+<script src="../jquery-3.3.1.js"></script>
+<script>
+	function getEmployee() {
+		var id = $("#empid").val();
+		$.getJSON("/webdemo/getemployee?empid=" + id, {}, showDetails);
+	}
+
+	function showDetails(emp) {
+		$("#firstname").val("");
+		$("#salary").val("");
+		$("#message").text("");
+		
+		if (emp.error) {
+            $("#message").text(emp.error)
+			$("#empid").focus();
+		}
+		else {
+			$("#firstname").val(emp.name);
+			$("#salary").val(emp.salary);
+		}
+	}
+	
+	
+	function updateEmployee() {
+		var id = $("#empid").val();
+		var name = $("#firstname").val();
+		var salary = $("#salary").val();
+		
+		$.get("/webdemo/updateemployee",
+				 {"id" : id, "name" : name, "salary" : salary}, 
+				 showStatus);
+	}
+
+	function showStatus(status) {
+		$("#status").text(status);
+	}
+	
+</script>
+</head>
+<body>
+	<h2>Edit Employee</h2>
+		Employee Id <br /> <input type="number" id="empid"
+			onblur="getEmployee()" />
+			<span id="message"></span>
+		<p />
+		First Name <br /> <input type="text" id="firstname" />
+		<p />
+		Salary <br /> <input type="number" id="salary" />
+		<p />
+		<button onclick="updateEmployee()">Update</button>
+		<p/>
+		<div id="status"></div>
+</body>
+</html>
