@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Edit Employee</title>
+<script src="../jquery-3.3.1.js"></script>
+<script>
+	function searchEmployees() {
+		var name = $("#name").val();
+		var salary = $("#salary").val();
+		$("#error").css("visibility", "hidden");
+		$("#empTable").css("visibility", "hidden");
+		$("#snake").css("visibility","visible");
+		
+		$.getJSON("/webdemo/searchemployee",
+				  {
+			       "name" : name, 
+			       "salary" : salary
+			      }, 
+				  showEmployees);
+	}
+
+	function showEmployees(emps) {
+		
+
+		if (emps.length == 0)
+			$("#error").css("visibility", "visible");
+		else {
+			// populate table with employees details 
+			$("#employees").html("");  // clear all employees from table 
+			$.each(emps, 
+					function(idx,emp){
+				       $("#employees").append("<tr><td>" + emp.id + "</td><td>" + 
+				    		     emp.name + "</td><td>" + emp.job + 
+				    		     "</td><td>" + emp.salary + "</td></tr>");
+          	        } // anonymous function 
+			);
+			
+			$("#empTable").css("visibility", "visible");
+		} // else
+			
+		$("#snake").css("visibility","hidden");
+	}
+	
+	function  showAdvanced(event)
+	{
+		$("#adv").css("visibility", "visible");
+		console.log(event);
+		event.preventDefault();
+	}
+</script>
+</head>
+<body>
+	<h2>Search Employees</h2>
+	Name :
+	<input type="text" id="name" /> 
+	<a  href="" onclick="showAdvanced(event)">Advanced Search</a>
+	<img id="snake" src="snake.gif" style="visibility:hidden"/>
+	<div id="adv" style="visibility:hidden">
+	Salary : <input type="text" id="salary" />
+	</div>
+	<button onclick="searchEmployees()">Search</button>
+	<p />
+	<div id="error" style="visibility: hidden">Sorry! No Employees
+		Found!</div>
+	<table id="empTable" style="visibility: hidden" width="100%" border='1'>
+		<tr>
+			<th>Id</th>
+			<th>Name</th>
+			<th>Job</th>
+			<th>Salary</th>
+		</tr>
+		<tbody id="employees">
+		</tbody>
+	</table>
+</body>
+</html>
+
+
+
+
+
+
+
+

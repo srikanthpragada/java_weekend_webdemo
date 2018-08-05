@@ -20,16 +20,28 @@ import oracle.jdbc.rowset.OracleCachedRowSet;
 public class SearchEmployeesServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int salary=0;
 		String name = request.getParameter("name");
+		String sal = request.getParameter("salary");
+		if(sal != null && sal.length() > 0 )
+			salary = Integer.parseInt(sal);
+			
 		PrintWriter out = response.getWriter();
 		response.setContentType("application/json");
 		try {
+			// Thread.sleep(5000);
 			CachedRowSet crs = new OracleCachedRowSet();
 			crs.setUsername("hr");
 			crs.setPassword("hr");
 			crs.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
-			crs.setCommand("select employee_id, first_name, job_title, salary from employees natural join jobs where upper(first_name) like ?");
-			crs.setString(1, "%" + name.toUpperCase() + "%");
+            String cmd = "select employee_id, first_name, job_title, salary from employees natural join jobs where  1 = 1 ";
+            if (name != null && name.length() > 0 )
+            	cmd += " and upper(first_name) like '%" + name.toUpperCase() + "%'";
+            	
+            if (salary > 0)
+            	cmd += " and salary >= " + salary; 
+			crs.setCommand(cmd);
+			// crs.setString(1, "%" + name.toUpperCase() + "%");
 			crs.execute();
 			ArrayList<Employee> emps = new ArrayList<>();
 			while(crs.next()) {
